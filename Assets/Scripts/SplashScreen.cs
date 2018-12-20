@@ -30,10 +30,31 @@ public class SplashScreen : MonoBehaviour
         SplashScreenFadeOut = 1
     }
 
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        _splashScreenFadeValue = 0;                         // Fade value equals zero on start up
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.visible = false;                             // Set the cursor visible state to false
+        Cursor.lockState = CursorLockMode.Locked;           // and lock the cursor
+
+        _splashScreenAudio = GetComponent<AudioSource>();   // Splash screen audio equals the audio source
+        _splashScreenAudio.volume = 0;                      // audio volume equals zero on startup
+        _splashScreenAudio.clip = _splashScreenMusic;       // Audio clip equals splash screen music
+        _splashScreenAudio.loop = true;                     // Set Audio Loop
+        _splashScreenAudio.Play();                          // Play Audio
+
+        _splashScreenController =                           // State equals
+    SplashScreen.SplashScreenController.SplashScreenFadeIn; // fade in on start up
+
+        StartCoroutine("SplashScreenManager");              // Start SplashScreenManager function
     }
 
     // Update is called once per frame
