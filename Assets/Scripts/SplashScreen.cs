@@ -63,13 +63,45 @@ public class SplashScreen : MonoBehaviour
         
     }
 
+    private IEnumerator SplashScreenManager()
+    {
+        while (true)
+        {
+            switch (_splashScreenController)
+            {
+                case SplashScreenController.SplashScreenFadeIn:
+                    SplashScreenFadeIn();
+                    break;
+                case SplashScreenController.SplashScreenFadeOut:
+                    SplashScreenFadeOut();
+                    break;
+            }
+            yield return null;
+        }
+        
+    }
+
     private void SplashScreenFadeIn()
     {
         Debug.Log("SplashScreenFadeIn");
+        _splashScreenAudio.volume += _splashScreenFadeSpeed * Time.deltaTime;   // increase volume by the fade speed
+        _splashScreenFadeValue += _splashScreenFadeSpeed * Time.deltaTime;      // increase fade value by fade speed
+
+        if (_splashScreenFadeValue > 1)                                         // if fade value is greater than 1
+        {
+            _splashScreenFadeValue = 1;                                         // then set fade value to 1
+        }
     }
 
     private void SplashScreenFadeOut()
     {
         Debug.Log("SplashScreenFadeOut");
+        _splashScreenAudio.volume -= _splashScreenFadeSpeed * Time.deltaTime;   // decrease volume by the fade speed
+        _splashScreenFadeValue -= _splashScreenFadeSpeed * Time.deltaTime;      // decrease fade value by fade speed
+
+        if (_splashScreenFadeValue < 0)                                         // if fade value is greater than 0
+        {
+            _splashScreenFadeValue = 0;                                         // then set fade value to 0
+        }
     }
 }
