@@ -125,10 +125,10 @@ public class SplashScreen : MonoBehaviour
     {
         try
         {
-        Rect position = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture starting at 0/0 by the screen width and height
-        GUI.DrawTexture(position, _splashScreenBackground);                     // and draw the background texture
-        GUI.color = new Color(1,1,1,_splashScreenFadeValue);                    // GUI color is equal to (1 1 1) plus the fade value
-        GUI.DrawTexture(position, _splashScreenText);                           // Draw splash screen text
+            Rect position = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture starting at 0/0 by the screen width and height
+            GUI.DrawTexture(position, _splashScreenBackground);                     // and draw the background texture
+            GUI.color = new Color(1,1,1,_splashScreenFadeValue);                    // GUI color is equal to (1 1 1) plus the fade value
+            GUI.DrawTexture(position, _splashScreenText);                           // Draw splash screen text
         }
         catch (System.Exception ex)
         {
