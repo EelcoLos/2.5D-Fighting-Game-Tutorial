@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 ///<summary>
 /// Splash Screen.cs
@@ -91,6 +92,12 @@ public class SplashScreen : MonoBehaviour
         {
             _splashScreenFadeValue = 1;                                         // then set fade value to 1
         }
+
+        if(_splashScreenFadeValue == 1)                                         // if fade value equals one
+        {
+            _splashScreenController =                                           // Set Splash screen controller to equal
+                SplashScreen.SplashScreenController.SplashScreenFadeOut;        // Splash Screen fade out
+        }
     }
 
     private void SplashScreenFadeOut()
@@ -103,5 +110,22 @@ public class SplashScreen : MonoBehaviour
         {
             _splashScreenFadeValue = 0;                                         // then set fade value to 0
         }
+
+        if (_splashScreenFadeValue == 0)                                        // if fade value equals zero
+        {
+            SceneManager.LoadScene("ControllerWarning");                        // load scene ControllerWarning
+        }
+    }
+
+    /// <summary>
+    /// OnGUI is called for rendering and handling GUI events.
+    /// This function can be called multiple times per frame (one call per event).
+    /// </summary>
+    private void OnGUI()
+    {
+        Rect position = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture starting at 0/0 by the screen width and height
+        GUI.DrawTexture(position, _splashScreenBackground);                     // and draw the background texture
+        GUI.color = new Color(1,1,1,_splashScreenFadeValue);                    // GUI color is equal to (1 1 1) plus the fade value
+        GUI.DrawTexture(position, _splashScreenText);                           // Draw splash screen text
     }
 }

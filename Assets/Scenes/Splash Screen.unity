@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44a457dc8ede6640ae20957ef6c98e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _splashScreenBackground: {fileID: 0}
-  _splashScreenText: {fileID: 0}
+  _splashScreenBackground: {fileID: 2800000, guid: 7236b0f1533aacf47a9a432562113403,
+    type: 3}
+  _splashScreenText: {fileID: 2800000, guid: e6ab6c2e7fb7dd1408ddbc7309a61494, type: 3}
   _splashScreenMusic: {fileID: 0}
