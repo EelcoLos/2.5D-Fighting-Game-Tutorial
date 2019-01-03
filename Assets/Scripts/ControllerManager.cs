@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 ///<summary>
-/// Controller warning.cs
+/// Controller manager.cs
 /// Eelco Los
 /// 03-01-2019
 /// </summary>
 
-public class ControllerWarning : MonoBehaviour
+public class ControllerManager : MonoBehaviour
 {
     public Texture2D _controllerNotDetected;                                // Creates slot in inspector to assign controller not detected warning text
 
@@ -36,17 +36,23 @@ public class ControllerWarning : MonoBehaviour
         DontDestroyOnLoad(this);                                            // Don't destroy this game object when loading a new scene
     }
 
-    // Update is called once per frame
-    void Update()
+    // LateUpdate is called once per second
+    void LateUpdate()
     {
-        if (_controllerDetected)                                            // if controller is detected
-        {
-            return;                                                         // then do nothing and return
-        }
+        
     }
 
     private void OnGUI()
     {
+        if (!_startupFinished || _controllerDetected)                       // if startup finished equals false or controller detected equals true
+        {
+            return;                                                         // then do nothing and return
+        }
         
+        if (!_controllerDetected)                                           // if controller detected equals false
+        {
+            Rect position = new Rect(0, 0, Screen.width, Screen.height);    // Draw a texture at this position by these dimensions
+            GUI.DrawTexture(position, _controllerNotDetected);              // draw the controller not detected texture
+        }
     }
 }
