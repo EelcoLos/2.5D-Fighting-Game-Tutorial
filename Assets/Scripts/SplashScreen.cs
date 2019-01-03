@@ -121,6 +121,7 @@ public class SplashScreen : MonoBehaviour
     /// OnGUI is called for rendering and handling GUI events.
     /// This function can be called multiple times per frame (one call per event).
     /// </summary>
+    /// <remarks> With 2018.3.0f2, not using try-catch in this method will result in Unity crashing. </remarks>
     private void OnGUI()
     {
         try
