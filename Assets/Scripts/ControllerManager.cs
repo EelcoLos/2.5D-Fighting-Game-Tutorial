@@ -39,19 +39,37 @@ public class ControllerManager : MonoBehaviour
     // LateUpdate is called once per second
     void LateUpdate()
     {
+        var _joyStickNames = Input.GetJoystickNames();                      // _joysticknames equals get joystick from inbuilt input
+        if (_joyStickNames.Length > 0)
+        {
+            _controllerDetected = true;
+            for (int i = 0; i < _joyStickNames.Length; i++)
+            {
+                if (_joyStickNames[i].Length == 19)                         // if joystick name equals code 19
+                {
+                    _pS4Controller = true;                                  // set PS4 controller true
+                    _controllerDetected = true;
+                }
+                if (_joyStickNames[i].Length == 33)                         // if joystick name equals code 33 
+                {
+                    _xBOXController = true;                                 // set XBox controller true
+                    _controllerDetected = true;
+                }
+                if (string.IsNullOrEmpty(_joyStickNames[i]))                
+                    _controllerDetected = false;
+            }
+        }
         
     }
 
     private void OnGUI()
     {
         if (!_startupFinished || _controllerDetected)                       // if startup finished equals false or controller detected equals true
-        {
             return;                                                         // then do nothing and return
-        }
         
         if (!_controllerDetected)                                           // if controller detected equals false
         {
-            Rect position = new Rect(0, 0, Screen.width, Screen.height);    // Draw a texture at this position by these dimensions
+            var position = new Rect(0, 0, Screen.width, Screen.height);     // Draw a texture at this position by these dimensions
             GUI.DrawTexture(position, _controllerNotDetected);              // draw the controller not detected texture
         }
     }
