@@ -29,6 +29,32 @@ public class ControllerWarning : ControllerManager
     // Update is called once per frame
     void Update()
     {
+        if (_controllerDetected == true)                            // if controller detected equals true
+            StartCoroutine("WaitToLoadMainMenu");                 
+        if (!_controllerConditionsMet)                              // if controller condition met equals false
+            return;
+
+        if(_controllerConditionsMet)                                // if controller condition met equals true
+        {
+            _controllerWarningFadeValue-=                           // Decrease fade value
+                _controllerWarningFadeSpeed                         // by fade speed
+                * Time.deltaTime;                                   // times delta time
+        }
+
+        if (_controllerWarningFadeValue < 0)                        // if fade value goes below zero
+            _controllerWarningFadeValue = 0;                        // then set fade value to zero
         
+        if (_controllerWarningFadeValue == 0)                       // if fade value equals zero
+        {
+            _startupFinished = true;
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    private IEnumerator WaitToLoadMainMenu()
+    {
+        yield return new WaitForSeconds(2);                         // Wait for this (x) many seconds
+
+        _controllerConditionsMet = true;                            // Set controller conditions met to true
     }
 }
