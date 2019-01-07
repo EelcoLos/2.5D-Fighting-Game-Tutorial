@@ -57,4 +57,19 @@ public class ControllerWarning : ControllerManager
 
         _controllerConditionsMet = true;                            // Set controller conditions met to true
     }
+
+    private void OnGUI()
+    {
+        var rect = new Rect(0, 0,                                  // Draw texture starting at 0,0
+         Screen.width, Screen.height);                              // by the screen width and height
+        GUI.DrawTexture(rect, _controllerWarningBackground);        // draw the warning background
+
+        GUI.color = new Color(1,1,1,                                // GUI color is equal to 1 1 1 (rgb default)
+        _controllerWarningFadeValue);                               // plus the fade value
+
+        GUI.DrawTexture(rect, _controllerWarningText);              // Draw the controller warning text
+
+        if(_controllerDetected)                                     // if controller detected equals true
+            GUI.DrawTexture(rect, _controllerDetectedText);         // draw the controller detected text
+    }
 }
