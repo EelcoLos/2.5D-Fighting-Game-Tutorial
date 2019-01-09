@@ -101,24 +101,41 @@ public class MainMenu : MonoBehaviour
     private void MainMenuFadeIn()
     {
         Debug.Log("MainMenuFadeIn");
+
+        _mainMenuAudio.volume += _mainMenuFadeSpeed * Time.deltaTime;       // increase volume by the fade speed
+        _mainMenuFadeValue += _mainMenuFadeSpeed * Time.deltaTime;          // increase fade value by the fade speed
+
+        if(_mainMenuFadeValue > 1)                                          // if fade value is greater than 1
+            _mainMenuFadeValue = 1;                                         // then make fade value equal to 1
+        
+        if(_mainMenuFadeValue == 1)                                         // if fade value equals 1
+        {
+            _mainMenuController = MainMenuController.MainMenuAtIdle;        // then make state equal to main menu at idle
+        }
     }
     private void MainMenuAtIdle()
     {
         Debug.Log("MainMenuAtIdle");
+
+        if (_startingOnePlayerGame || _quittingGame)                        // if starting one player game OR quitting equals true
+            _mainMenuController = MainMenuController.MainMenuFadeOut;       // then make state equals to main menu fade out
     }
     private void MainMenuFadeOut()
     {
         Debug.Log("MainMenuFadeOut");
+        _mainMenuAudio.volume -= _mainMenuFadeSpeed * Time.deltaTime;       // decrease volume by the fade speed
+        _mainMenuFadeValue -= _mainMenuFadeSpeed * Time.deltaTime;          // decrease fade value by the fade speed
+
+        if(_mainMenuFadeValue < 0)                                          // if fade value is greater than 0
+            _mainMenuFadeValue = 0;                                         // then make fade value equal to 0
+        
+        if (_mainMenuFadeValue == 0 && _startingOnePlayerGame)              // if fade value equals 0 AND starting one player game is equal to true
+            SceneManager.LoadScene("ChooseCharacter");                      // Load choose character scene
     }
 
     private void MainMenuButtonPress()
     {
         Debug.Log("MainMenuButtonPress");
-    }
-
-
-    private void MainMenuButtonPressed()
-    {
         GUI.FocusControl(_mainMenuButtons[_selectedButton]);
 
         switch (_selectedButton)

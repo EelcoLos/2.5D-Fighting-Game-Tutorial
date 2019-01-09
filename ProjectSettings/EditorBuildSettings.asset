@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Splash Screen.unity
     guid: 5886259f1190b674fb0403070d814cb4
@@ -17,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b08832adc4759cb4082fc11ca0e479e0
+  - enabled: 1
+    path: Assets/Scenes/ChooseCharacter.unity
+    guid: 5b1806c6a16acfb4aa524471f1e1aa66
   m_configObjects: {}
