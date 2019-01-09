@@ -53,9 +53,21 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _startingOnePlayerGame = false;                                     // Starting one player game is false on start up
+        _startingTwoPlayerGame = false;                                     // Starting two player game is false on start up
+        _quittingGame = false;                                              // Quitting is false on start up
+
         _ps4Controller = false;                                             // PS4 controller is false on start up
         _xBoxController = false;                                            // XBox controller is false on start up
-        
+
+        _mainMenuFadeValue = 0;                                             // fade value is set to 0 on start up
+
+        _mainMenuAudio = GetComponent<AudioSource>();                       // _mainMenuAudio equals the audio source component
+        _mainMenuAudio.volume = 0;                                          // Audio Volume equals 0 on start up
+        _mainMenuAudio.clip = _mainMenuMusic;                               // audio clip equals main menu music
+        _mainMenuAudio.loop = true;                                         // Set audio to loop
+        _mainMenuAudio.Play();                                              // Play the audio
+
         _mainMenuController = MainMenuController.MainMenuFadeIn;            // State equals fade in on start up
 
         StartCoroutine("MainMenuManager");                                  // Start MainMenuManager on start up
@@ -102,5 +114,27 @@ public class MainMenu : MonoBehaviour
     private void MainMenuButtonPress()
     {
         Debug.Log("MainMenuButtonPress");
+    }
+
+
+    private void MainMenuButtonPressed()
+    {
+        GUI.FocusControl(_mainMenuButtons[_selectedButton]);
+
+        switch (_selectedButton)
+        {
+            case 0:
+                _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);      // play start button audio clip
+                _startingOnePlayerGame = true;                              // set starting one player game to true
+                break;
+            case 1:
+                _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);      // play start button audio clip
+                _startingTwoPlayerGame = true;                              // set starting two player game to true
+                break;
+            case 2:
+                _mainMenuAudio.PlayOneShot(_mainMenuQuitButtonAudio);       // play quit button audio clip
+                _quittingGame = true;                                       // set quit game to true
+                break;
+        }
     }
 }
