@@ -6,6 +6,32 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]                                     // Add audio source when attaching script
 public class MainMenu : MonoBehaviour
 {
+    public int _selectedButton = 0;                                         // Defines selected GUI Button
+    public float _timeBetweenButtonPress = 0.1f;                            // Defines delay time between button presses
+    public float _timeDelay;                                                // Defines delay variable value
+
+    public float _mainMenuVerticalInputTimer;                               // Defines vertical input timer
+    public float _mainMenuVerticalInputDelay = 1f;                          // Defines vertical input delay
+
+    public Texture2D _mainMenuBackground;                                   // Creates slot in inspector to assign main menu background
+
+    private AudioSource _mainMenuAudio;                                     // Defines naming convention for the main menu audio Component
+    public AudioClip _mainMenuMusic;                                        // Creates slot in inspector to assign main menu music
+    public AudioClip _mainMenuStartButtonAudio;                             // Creates slot in inspector to assign main menu start button audio
+    public AudioClip _mainMenuQuitButtonAudio;                              // Creates slot in inspector to assign main menu quit button audio
+
+    public float _mainMenuFadeValue;                                        // Defines fade Value
+    public float _mainMenuFadeSpeed = 0.15f;                                // Defines fade speed
+
+    public float _mainMenuButtonWidth = 100f;                               // Defines main menu button width size
+    public float _mainMenuButtonHeight = 25f;                               // Defines main menu button height size
+    
+    public float _mainMenuGUIOffset = 10f;                                  // Defines main menu GUI Offset
+
+    private bool _startingOnePlayerGame;                                    // Defines if we are starting a one player game
+    private bool _startingTwoPlayerGame;                                    // Defines if we are starting a two player game
+    private bool _quittingGame;                                             // Defines if we are quitting the game
+
     private bool _ps4Controller;                                            // Creates bool when a PS4 Controller is connected
     private bool _xBoxController;                                           // Creates bool when a XBox Controller is connected
 
