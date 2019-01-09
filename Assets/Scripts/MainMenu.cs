@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]                                     // Add audio source when attaching script
 public class MainMenu : MonoBehaviour
 {
+    private bool _ps4Controller;                                            // Creates bool when a PS4 Controller is connected
+    private bool _xBoxController;                                           // Creates bool when a XBox Controller is connected
 
     private string[] _mainMenuButtons = new string[]                        // Creates an array of GUI Buttons for the main menu scene
     {
@@ -25,13 +27,37 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _ps4Controller = false;                                             // PS4 controller is false on start up
+        _xBoxController = false;                                            // XBox controller is false on start up
         
+        _mainMenuController = MainMenuController.MainMenuFadeIn;            // State equals fade in on start up
+
+        StartCoroutine("MainMenuManager");                                  // Start MainMenuManager on start up
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    private IEnumerator MainMenuManager()
+    {
+        while (true)
+        {
+            switch (_mainMenuController)
+            {
+                case MainMenuController.MainMenuFadeIn:
+                    MainMenuFadeIn();
+                    break;
+                case MainMenuController.MainMenuAtIdle:
+                    MainMenuAtIdle();
+                    break;
+                case MainMenuController.MainMenuFadeOut:
+                    MainMenuFadeOut();
+                    break;
+            }
+            yield return null;
+        }
     }
 
     private void MainMenuFadeIn()
