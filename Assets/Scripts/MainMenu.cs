@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+///<summary>
+/// Main Menu.cs
+/// Eelco Los
+/// 09-01-2019
+/// </summary>
+
 [RequireComponent(typeof(AudioSource))]                                     // Add audio source when attaching script
 public class MainMenu : MonoBehaviour
 {
@@ -20,6 +26,7 @@ public class MainMenu : MonoBehaviour
     public AudioClip _mainMenuStartButtonAudio;                             // Creates slot in inspector to assign main menu start button audio
     public AudioClip _mainMenuQuitButtonAudio;                              // Creates slot in inspector to assign main menu quit button audio
 
+    [Range(0f,1f)]
     public float _mainMenuFadeValue;                                        // Defines fade Value
     public float _mainMenuFadeSpeed = 0.15f;                                // Defines fade speed
 
@@ -76,6 +83,18 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var _joyStickNames = Input.GetJoystickNames();                      // _joyStickNames equals joystick names from inbuilt input
+
+        for (int i = 0; i < _joyStickNames.Length; i++)                     // i equals the joysticknames length
+        {
+            if(_joyStickNames[i].Length == 0)                               // if joystick names equals zero (if no controller attached)
+                return;                                                     // then do nothing and return
+            
+            if (_joyStickNames[i].Length == 19)                             // if joystick names equals 19 (PS4 controller)
+                _ps4Controller = true;                                      // then set ps4controller to true 
+            if (_joyStickNames[i].Length == 33)                             // if joystick names equals 33 (XBox controller)
+                _xBoxController = true;                                      // then set xboxcontroller to true 
+        }
     }
 
     private IEnumerator MainMenuManager()
@@ -153,5 +172,17 @@ public class MainMenu : MonoBehaviour
                 _quittingGame = true;                                       // set quit game to true
                 break;
         }
+    }
+
+    /// <summary>
+    /// OnGUI is called for rendering and handling GUI events.
+    /// This function can be called multiple times per frame (one call per event).
+    /// </summary>
+    public void OnGUI()
+    {
+        Rect rect = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture at position by these dimenions
+        GUI.DrawTexture(rect, _mainMenuBackground);                         // and draw this texture
+
+        GUI.color = new Color(1,1,1, _mainMenuFadeValue);                   // GUI color is equal to (1 1 1 rgb) plus the fade value (alpha)
     }
 }
