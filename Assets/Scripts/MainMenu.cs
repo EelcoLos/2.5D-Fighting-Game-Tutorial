@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]                                     // Add audio source when attaching script
 public class MainMenu : MonoBehaviour
 {
+    #region variables
     public int _selectedButton = 0;                                         // Defines selected GUI Button
     public float _timeBetweenButtonPress = 0.1f;                            // Defines delay time between button presses
     public float _timeDelay;                                                // Defines delay variable value
@@ -57,6 +58,8 @@ public class MainMenu : MonoBehaviour
         MainMenuFadeOut = 2
     }
 
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,7 +96,68 @@ public class MainMenu : MonoBehaviour
             if (_joyStickNames[i].Length == 19)                             // if joystick names equals 19 (PS4 controller)
                 _ps4Controller = true;                                      // then set ps4controller to true 
             if (_joyStickNames[i].Length == 33)                             // if joystick names equals 33 (XBox controller)
-                _xBoxController = true;                                      // then set xboxcontroller to true 
+                _xBoxController = true;                                     // then set xboxcontroller to true 
+        }
+
+        if (_mainMenuVerticalInputTimer > 0)                                // if vertical input timer is greater than 0
+            _mainMenuVerticalInputTimer -=1f * Time.deltaTime;              // then reduce vertical input timer
+
+        float v = Input.GetAxis("Vertical");
+
+        #region video tutorial intent
+        /*
+        if (v > 0f && _selectedButton == 0)                                 // if input equals vertical (positive) and selected button equals 0
+            return;                                                         // then do nothing
+        
+        if (v > 0f && _selectedButton == 1)                                 // if input equals vertical (positive) and selected button equals 1
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+                return;                                                     // then do nothing
+                                                                            // else
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
+            _selectedButton = 0;                                            // and make selected button equal to 0
+        }
+
+        if (v > 0f && _selectedButton == 2)                                 // if input equals vertical (positive) and selected button equals 2
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+                return;                                                     // then do nothing
+                                                                            // else
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
+            _selectedButton = 1;                                            // and make selected button equal to 1
+        }
+
+        if (v < 0f && _selectedButton == 0)                                 // if input equals vertical (negative) and selected button equals 0
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+                return;                                                     // then do nothing
+                                                                            // else
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
+            _selectedButton = 1;                                            // and make selected button equal to 1
+        }
+
+        if (v < 0f && _selectedButton == 1)                                 // if input equals vertical (negative) and selected button equals 1
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+                return;                                                     // then do nothing
+                                                                            // else
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
+            _selectedButton = 2;                                            // and make selected button equal to 2
+        }
+        */
+        #endregion
+
+        if (v < 0f && _selectedButton == 2)                                 // if input equals vertical (positive) and selected button equals 2
+            return;                                                         // then do nothing
+
+        if (v != 0f)
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+                return;                                                     // then do nothing
+                                                                            // else
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
+            var upOrDown = Mathf.CeilToInt(v);
+            _selectedButton += upOrDown;
         }
     }
 
