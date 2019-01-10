@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     #region variables
+    [Range(0,2)]
     public int _selectedButton = 0;                                         // Defines selected GUI Button
     public float _timeBetweenButtonPress = 0.1f;                            // Defines delay time between button presses
     public float _timeDelay;                                                // Defines delay variable value
@@ -49,6 +50,7 @@ public class MainMenu : MonoBehaviour
         "_twoPlayer",
         "_quit"
     };
+    
 
     private MainMenuController _mainMenuController;                         // Defines naming convention for main menu controller
     private enum MainMenuController                                         // Defines states main menu can exist in
@@ -244,9 +246,28 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void OnGUI()
     {
+        if (Time.deltaTime >= _timeDelay && (Input.GetButtonDown("Fire1"))) // if time is greater than or equals our time delay AND input equals "fire1"
+        {
+            StartCoroutine("MainMenuButtonPress");                          // then start MainMenuButtonPress function
+            _timeDelay = Time.deltaTime + _timeBetweenButtonPress;          // and then make the time delay equal current time plus timebetweenbuttonpress
+        }
+
         Rect rect = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture at position by these dimenions
         GUI.DrawTexture(rect, _mainMenuBackground);                         // and draw this texture
 
         GUI.color = new Color(1,1,1, _mainMenuFadeValue);                   // GUI color is equal to (1 1 1 rgb) plus the fade value (alpha)
+
+        GUI.BeginGroup(new Rect(                                            // Begin GUI Group
+            Screen.width/2-_mainMenuButtonWidth/2,                          // at this position X
+            Screen.height/1.5f,                                             // at this position Y
+            _mainMenuButtonWidth,                                           // by this dimension X
+            _mainMenuButtonHeight*3 + _mainMenuGUIOffset * 2));             // by this dimension Y
+
+
+        GUI.EndGroup();                                                     // End GUI Group
+
+        if (_ps4Controller || _xBoxController)                              // if ps4 controller OR xbox controller equals true
+            GUI.FocusControl(_mainMenuButtons[_selectedButton]);            // then focus equals main menu selected button
+        
     }
 }
