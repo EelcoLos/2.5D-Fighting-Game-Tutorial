@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
     public AudioClip _mainMenuStartButtonAudio;                             // Creates slot in inspector to assign main menu start button audio
     public AudioClip _mainMenuQuitButtonAudio;                              // Creates slot in inspector to assign main menu quit button audio
 
-    [Range(0f,1f)]
+    [Range(0f,2f)]
     public float _mainMenuFadeValue;                                        // Defines fade Value
     public float _mainMenuFadeSpeed = 0.15f;                                // Defines fade speed
 
@@ -79,7 +79,6 @@ public class MainMenu : MonoBehaviour
         _mainMenuAudio.clip = _mainMenuMusic;                               // audio clip equals main menu music
         _mainMenuAudio.loop = true;                                         // Set audio to loop
         _mainMenuAudio.Play();                                              // Play the audio
-
         _mainMenuController = MainMenuController.MainMenuFadeIn;            // State equals fade in on start up
 
         StartCoroutine("MainMenuManager");                                  // Start MainMenuManager on start up
@@ -147,20 +146,37 @@ public class MainMenu : MonoBehaviour
             _selectedButton = 2;                                            // and make selected button equal to 2
         }
         */
-        #endregion
 
-        if (v < 0f && _selectedButton == 2)                                 // if input equals vertical (positive) and selected button equals 2
-            return;                                                         // then do nothing
+
+        // if (v < 0f)                                                         // if input equals vertical (positive) and selected button equals 2
+        //     return;                                                         // then do nothing
+                #endregion
 
         if (v != 0f)
         {
-            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input is greater than 0
+            if (_mainMenuVerticalInputTimer > 0)                            // if vertical input timer is greater than 0
                 return;                                                     // then do nothing
                                                                             // else
             _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;      // make vertical input timer equals to input delay
-            var upOrDown = Mathf.CeilToInt(v);
-            _selectedButton += upOrDown;
+            var mathres = CalculateSelectedButton(v);
+            _selectedButton = mathres;
         }
+    }
+
+    private int CalculateSelectedButton(float v)
+    {
+        var upOrDown = v > 0 ? Mathf.CeilToInt(v) : Mathf.FloorToInt(v);
+        var inverted = upOrDown * -1;
+        var mathres = _selectedButton += inverted;
+        if (mathres < 0)                                                    // Tried this via the RangeAttribute, but didn't find a solution
+        {
+            mathres = _mainMenuButtons.Length - 1;
+        }
+        else if (mathres > _mainMenuButtons.Length)
+        {
+            mathres = 0;
+        }
+        return mathres;
     }
 
     private IEnumerator MainMenuManager()
@@ -190,9 +206,10 @@ public class MainMenu : MonoBehaviour
         _mainMenuAudio.volume += _mainMenuFadeSpeed * Time.deltaTime;       // increase volume by the fade speed
         _mainMenuFadeValue += _mainMenuFadeSpeed * Time.deltaTime;          // increase fade value by the fade speed
 
-        if(_mainMenuFadeValue > 1)                                          // if fade value is greater than 1
+        if(_mainMenuFadeValue >= 1)                                         // if fade value is greater than 1
+        {
             _mainMenuFadeValue = 1;                                         // then make fade value equal to 1
-        
+        }
         if(_mainMenuFadeValue == 1)                                         // if fade value equals 1
         {
             _mainMenuController = MainMenuController.MainMenuAtIdle;        // then make state equal to main menu at idle
@@ -202,7 +219,7 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("MainMenuAtIdle");
 
-        if (_startingOnePlayerGame || _quittingGame)                        // if starting one player game OR quitting equals true
+        if (_startingOnePlayerGame == true || _quittingGame == true)        // if starting one player game OR quitting equals true
             _mainMenuController = MainMenuController.MainMenuFadeOut;       // then make state equals to main menu fade out
     }
     private void MainMenuFadeOut()
@@ -246,28 +263,75 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void OnGUI()
     {
-        if (Time.deltaTime >= _timeDelay && (Input.GetButtonDown("Fire1"))) // if time is greater than or equals our time delay AND input equals "fire1"
+        try
         {
-            StartCoroutine("MainMenuButtonPress");                          // then start MainMenuButtonPress function
-            _timeDelay = Time.deltaTime + _timeBetweenButtonPress;          // and then make the time delay equal current time plus timebetweenbuttonpress
+            if (Time.deltaTime >= _timeDelay && (Input.GetButtonDown("Fire1"))) // if time is greater than or equals our time delay AND input equals "fire1"
+            {
+                StartCoroutine("MainMenuButtonPress");                          // then start MainMenuButtonPress function
+                _timeDelay = Time.deltaTime + _timeBetweenButtonPress;          // and then make the time delay equal current time plus timebetweenbuttonpress
+            }
+
+            Rect rect = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture at position by these dimenions
+            GUI.DrawTexture(rect, _mainMenuBackground);                         // and draw this texture
+
+            GUI.color = new Color(1,1,1, _mainMenuFadeValue);                   // GUI color is equal to (1 1 1 rgb) plus the fade value (alpha)
+
+            GUI.BeginGroup(new Rect(                                            // Begin GUI Group
+                Screen.width/2-_mainMenuButtonWidth/2,                          // at this position X
+                Screen.height/1.5f,                                             // at this position Y
+                _mainMenuButtonWidth,                                           // by this dimension X
+                _mainMenuButtonHeight*3 + _mainMenuGUIOffset * 2));             // by this dimension Y
+
+            GUI.SetNextControlName("_onePlayer");                               // Set name to one player
+            if (GUI.Button(new Rect(                                            // Create button
+                0,0,                                                            // at this position within the gui group
+                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
+                "One Player"))
+                {
+                    _selectedButton = 0;                                        // set selected button to 0
+                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
+                }
+
+            GUI.SetNextControlName("_twoPlayer");                               // Set name to two player
+            if (GUI.Button(new Rect(                                            // Create button
+                0,_mainMenuButtonHeight + _mainMenuGUIOffset,                   // at this position within the gui group
+                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
+                "Two Player"))
+                {
+                    _selectedButton = 1;                                        // set selected button to 1
+                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
+                }
+
+            GUI.SetNextControlName("_quit");                                    // Set name to quit
+            if (GUI.Button(new Rect(                                            // Create button
+                0,_mainMenuButtonHeight* 2 + _mainMenuGUIOffset * 2,            // at this position within the gui group
+                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
+                "Quit"))
+                {
+                    _selectedButton = 2;                                        // set selected button to 2
+                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
+                }                                                   
+
+            GUI.EndGroup();                                                     // End GUI Group
+
+            if (_ps4Controller == true || _xBoxController == true)                              // if ps4 controller OR xbox controller equals true
+            {
+                try
+                {
+                    GUI.FocusControl(_mainMenuButtons[_selectedButton]);            // then focus equals main menu selected button
+                }
+                catch (System.IndexOutOfRangeException iex)
+                {
+                    Debug.LogErrorFormat("Index OOB: selectedbutton: {0}", _selectedButton);
+                }
+                
+            }
+            
         }
-
-        Rect rect = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture at position by these dimenions
-        GUI.DrawTexture(rect, _mainMenuBackground);                         // and draw this texture
-
-        GUI.color = new Color(1,1,1, _mainMenuFadeValue);                   // GUI color is equal to (1 1 1 rgb) plus the fade value (alpha)
-
-        GUI.BeginGroup(new Rect(                                            // Begin GUI Group
-            Screen.width/2-_mainMenuButtonWidth/2,                          // at this position X
-            Screen.height/1.5f,                                             // at this position Y
-            _mainMenuButtonWidth,                                           // by this dimension X
-            _mainMenuButtonHeight*3 + _mainMenuGUIOffset * 2));             // by this dimension Y
-
-
-        GUI.EndGroup();                                                     // End GUI Group
-
-        if (_ps4Controller || _xBoxController)                              // if ps4 controller OR xbox controller equals true
-            GUI.FocusControl(_mainMenuButtons[_selectedButton]);            // then focus equals main menu selected button
+        catch (System.Exception ex)
+        {
+            Debug.LogError(ex);
+        }
         
     }
 }
