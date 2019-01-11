@@ -79,56 +79,67 @@ public class ChooseCharacter : ChooseCharacterManager
         switch (_characterSelectState)
         {
             case 0:
-                BlackRobot();
+                templateRobot("BlackRobot", new Vector3(-0.5f, 0 - 7));
+                _robotBlack = true;
                 break;
             case 1:
-                WhiteRobot();
+                templateRobot("WhiteRobot", new Vector3(-0.5f, 0 - 7));
+                _robotWhite = true;
                 break;
             case 2:
-                RedRobot();
+                templateRobot("RedRobot", new Vector3(-0.5f, 0 - 7));
+                _robotRed = true;
                 break;
             case 3:
-                BlueRobot();
+                templateRobot("BlueRobot", new Vector3(-0.5f, 0 - 7));
+                _robotBlue = true;
                 break;
             case 4:
-                BrownRobot();
+                templateRobot("BrownRobot", new Vector3(-0.5f, 0 - 7));
+                _robotBrown = true;
                 break;
             case 5:
-                GreenRobot();
+                templateRobot("GreenRobot", new Vector3(-0.5f, 0 - 7));
+                 _robotGreen = true;
                 break;
             case 6:
-                PinkRobot();
+                templateRobot("PinkRobot", new Vector3(-0.5f, 0 - 7));
+                _robotPink = true;
                 break;
             case 7:
-                GoldRobot();
+                templateRobot("GoldRobot", new Vector3(-0.5f, 0 - 7));
+                _robotGold = true;
                 break;
             //default:
         }
     }
 
-    private void BlackRobot (){
-        Debug.Log("BlackRobot");
+    private void DestroyAndInstantiateCharacterDemo(string resourceName, Vector3 position)
+    {
+        DestroyObject(_characterDemo);                              // Destroy current character demo object
+        _characterDemo =                                            // Character demo game object is equal to
+            Instantiate(Resources.Load(resourceName))               // the resourceName fighter within our resources folder
+            as GameObject;                                          // as a game object
+        _characterDemo.transform.position = position;               // Set character demo position to a new vector3 at provided position
     }
-    private void WhiteRobot (){
-        Debug.Log("WhiteRobot");
+
+    private static void setAllRobotsFalse()
+    {
+        _robotBlack = false;                                         // set robot black to false
+        _robotWhite = false;                                         // set robot white to false
+        _robotRed = false;                                           // set robot red to false
+        _robotBlue = false;                                          // set robot blue to false
+        _robotBrown = false;                                         // set robot brown to false
+        _robotGreen = false;                                         // set robot green to false
+        _robotPink = false;                                          // set robot pink to false
+        _robotGold = false;                                          // set robot gold to false
     }
-    private void RedRobot (){
-        Debug.Log("RedRobot");
-    }
-    private void BlueRobot (){
-        Debug.Log("BlueRobot");
-    }
-    private void BrownRobot (){
-        Debug.Log("BrownRobot");
-    }
-    private void GreenRobot (){
-        Debug.Log("GreenRobot");
-    }
-    private void PinkRobot (){
-        Debug.Log("PinkRobot");
-    }
-    private void GoldRobot (){
-        Debug.Log("GoldRobot");
+
+    private void templateRobot(string charName, Vector3 position)
+    {
+        Debug.Log(charName);
+        DestroyAndInstantiateCharacterDemo(charName, position);
+        setAllRobotsFalse();
     }
 
     /// <summary>
