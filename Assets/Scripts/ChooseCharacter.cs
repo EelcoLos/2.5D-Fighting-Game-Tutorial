@@ -114,6 +114,13 @@ public class ChooseCharacter : ChooseCharacterManager
         }
     }
 
+    private void templateRobot(string charName, Vector3 position)
+    {
+        Debug.Log(charName);
+        DestroyAndInstantiateCharacterDemo(charName, position);
+        setAllRobotsFalse();
+    }
+
     private void DestroyAndInstantiateCharacterDemo(string resourceName, Vector3 position)
     {
         DestroyObject(_characterDemo);                              // Destroy current character demo object
@@ -133,13 +140,6 @@ public class ChooseCharacter : ChooseCharacterManager
         _robotGreen = false;                                         // set robot green to false
         _robotPink = false;                                          // set robot pink to false
         _robotGold = false;                                          // set robot gold to false
-    }
-
-    private void templateRobot(string charName, Vector3 position)
-    {
-        Debug.Log(charName);
-        DestroyAndInstantiateCharacterDemo(charName, position);
-        setAllRobotsFalse();
     }
 
     /// <summary>
