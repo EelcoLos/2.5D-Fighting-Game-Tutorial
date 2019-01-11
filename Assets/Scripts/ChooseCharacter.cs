@@ -44,6 +44,67 @@ public class ChooseCharacter : ChooseCharacterManager
 
     void CharacterSelectManager()
     {
+        switch (_characterSelectState)
+        {
+            case 0:
+                BlackRobot();
+                break;
+            case 1:
+                WhiteRobot();
+                break;
+            case 2:
+                RedRobot();
+                break;
+            case 3:
+                BlueRobot();
+                break;
+            case 4:
+                BrownRobot();
+                break;
+            case 5:
+                GreenRobot();
+                break;
+            case 6:
+                PinkRobot();
+                break;
+            case 7:
+                GoldRobot();
+                break;
+            //default:
+        }
+    }
 
+    private void BlackRobot (){
+        Debug.Log("BlackRobot");
+    }
+    private void WhiteRobot (){
+        Debug.Log("WhiteRobot");
+    }
+    private void RedRobot (){
+        Debug.Log("RedRobot");
+    }
+    private void BlueRobot (){
+        Debug.Log("BlueRobot");
+    }
+    private void BrownRobot (){
+        Debug.Log("BrownRobot");
+    }
+    private void GreenRobot (){
+        Debug.Log("GreenRobot");
+    }
+    private void PinkRobot (){
+        Debug.Log("PinkRobot");
+    }
+    private void GoldRobot (){
+        Debug.Log("GoldRobot");
+    }
+
+    /// <summary>
+    /// OnGUI is called for rendering and handling GUI events.
+    /// This function can be called multiple times per frame (one call per event).
+    /// </summary>
+    void OnGUI()
+    {
+        
     }
 }
