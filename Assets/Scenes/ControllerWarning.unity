@@ -276,3 +276,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9842c533fc7dfa7429b6519b742a7a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _controllerNotDetected: {fileID: 0}
+  _pS4Controller: 0
+  _xBOXController: 0
+  _controllerDetected: 0
+  _controllerWarningBackground: {fileID: 2800000, guid: 6dd7c0caed33c0a489592eb782b88d2c,
+    type: 3}
+  _controllerWarningText: {fileID: 2800000, guid: 194e8249f4f1ed84bb6d1bb4131d5a90,
+    type: 3}
+  _controllerDetectedText: {fileID: 2800000, guid: a8070161f7db83043a4a3aacd71a9ee0,
+    type: 3}
+  _controllerWarningFadeValue: 0

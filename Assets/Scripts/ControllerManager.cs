@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,13 +65,20 @@ public class ControllerManager : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_startupFinished || _controllerDetected)                       // if startup finished equals false or controller detected equals true
+        try
+        {
+            if (!_startupFinished || _controllerDetected)                       // if startup finished equals false or controller detected equals true
             return;                                                         // then do nothing and return
         
-        if (!_controllerDetected)                                           // if controller detected equals false
+            if (!_controllerDetected)                                           // if controller detected equals false
+            {
+                var position = new Rect(0, 0, Screen.width, Screen.height);     // Draw a texture at this position by these dimensions
+                GUI.DrawTexture(position, _controllerNotDetected);              // draw the controller not detected texture
+            }
+        }
+        catch (Exception ex)
         {
-            var position = new Rect(0, 0, Screen.width, Screen.height);     // Draw a texture at this position by these dimensions
-            GUI.DrawTexture(position, _controllerNotDetected);              // draw the controller not detected texture
+            Debug.LogErrorFormat("Error in {0}: {1}:",this.GetType().Name, ex);
         }
     }
 }

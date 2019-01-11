@@ -84,7 +84,7 @@ public class SplashScreen : MonoBehaviour
 
     private void SplashScreenFadeIn()
     {
-        Debug.Log("SplashScreenFadeIn");
+        //Debug.Log("SplashScreenFadeIn");
         _splashScreenAudio.volume += _splashScreenFadeSpeed * Time.deltaTime;   // increase volume by the fade speed
         _splashScreenFadeValue += _splashScreenFadeSpeed * Time.deltaTime;      // increase fade value by fade speed
 
@@ -102,7 +102,7 @@ public class SplashScreen : MonoBehaviour
 
     private void SplashScreenFadeOut()
     {
-        Debug.Log("SplashScreenFadeOut");
+        //Debug.Log("SplashScreenFadeOut");
         _splashScreenAudio.volume -= _splashScreenFadeSpeed * Time.deltaTime;   // decrease volume by the fade speed
         _splashScreenFadeValue -= _splashScreenFadeSpeed * Time.deltaTime;      // decrease fade value by fade speed
 
