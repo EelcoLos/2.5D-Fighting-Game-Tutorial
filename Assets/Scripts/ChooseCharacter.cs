@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 ///<summary>
-/// Choose character manager.cs
+/// Choose character.cs
 /// Eelco Los
 /// 11-01-2019
 /// </summary>
@@ -39,7 +39,39 @@ public class ChooseCharacter : ChooseCharacterManager
     // Update is called once per frame
     void Update()
     {
-        
+        if (_chooseCharacterInputTimer > 0)                         // if choose character input timer is greater than 0
+            _chooseCharacterInputTimer -= 1f * Time.deltaTime;      // then reduce choose character input timer value
+
+        if (_chooseCharacterInputTimer > 0)                         // if choose character input timer is greater than 0
+            return;                                                 // then do nothing and return
+
+        SelectCharacterHorizontal(-0.5f, 0.5f);
+    }
+
+    private void SelectCharacterHorizontal(float negativeThreshold, float positiveThreshold)
+    {
+        if (Input.GetAxis("Horizontal") < negativeThreshold ||       // if input equals horizontal less than negativeThreshold OR
+                    Input.GetAxis("Horizontal") > positiveThreshold) // if input equals horizontal greater then positiveThreshold
+        {
+            if (Input.GetAxis("Horizontal") < negativeThreshold)     // if input equals horizontal less than negativeThreshold
+            {
+                if (_characterSelectState == 0)                      // if character select state equals 0
+                    return;                                          // then do nothing and return
+
+                _characterSelectState--;                             // decrease from character select state value
+            }
+
+            if (Input.GetAxis("Horizontal") > positiveThreshold)     // if input equals horizontal greater than positiveThreshold
+            {
+                if (_characterSelectState == 7)                      // if character select state equals 7
+                    return;                                          // then do nothing and return
+
+                _characterSelectState++;
+            }
+
+            CharacterSelectManager();                                // and call CharacterSelectManager function
+            _chooseCharacterInputTimer = _chooseCharacterInputDelay; // make choose character input timer equal to input delay
+        }
     }
 
     void CharacterSelectManager()
