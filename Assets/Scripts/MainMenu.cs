@@ -201,7 +201,7 @@ public class MainMenu : MonoBehaviour
 
     private void MainMenuFadeIn()
     {
-        Debug.Log("MainMenuFadeIn");
+        //Debug.Log("MainMenuFadeIn");
 
         _mainMenuAudio.volume += _mainMenuFadeSpeed * Time.deltaTime;       // increase volume by the fade speed
         _mainMenuFadeValue += _mainMenuFadeSpeed * Time.deltaTime;          // increase fade value by the fade speed
@@ -217,14 +217,14 @@ public class MainMenu : MonoBehaviour
     }
     private void MainMenuAtIdle()
     {
-        Debug.Log("MainMenuAtIdle");
+        //Debug.Log("MainMenuAtIdle");
 
         if (_startingOnePlayerGame == true || _quittingGame == true)        // if starting one player game OR quitting equals true
             _mainMenuController = MainMenuController.MainMenuFadeOut;       // then make state equals to main menu fade out
     }
     private void MainMenuFadeOut()
     {
-        Debug.Log("MainMenuFadeOut");
+        //Debug.Log("MainMenuFadeOut");
         _mainMenuAudio.volume -= _mainMenuFadeSpeed * Time.deltaTime;       // decrease volume by the fade speed
         _mainMenuFadeValue -= _mainMenuFadeSpeed * Time.deltaTime;          // decrease fade value by the fade speed
 
