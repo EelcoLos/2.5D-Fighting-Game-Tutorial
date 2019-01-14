@@ -379,9 +379,11 @@ MonoBehaviour:
   _mainMenuVerticalInputTimer: 0
   _mainMenuVerticalInputDelay: 1
   _mainMenuBackground: {fileID: 2800000, guid: e0226cdb279efe7498dfddd094432b80, type: 3}
-  _mainMenuMusic: {fileID: 0}
-  _mainMenuStartButtonAudio: {fileID: 0}
-  _mainMenuQuitButtonAudio: {fileID: 0}
+  _mainMenuMusic: {fileID: 8300000, guid: df307e804b4002e43a4d1e5ff96d58e3, type: 3}
+  _mainMenuStartButtonAudio: {fileID: 8300000, guid: 1ed92d60d1716c3418a35025a1ac97f6,
+    type: 3}
+  _mainMenuQuitButtonAudio: {fileID: 8300000, guid: 732b20595291fa747808ec863a6965b2,
+    type: 3}
   _mainMenuFadeValue: 1
   _mainMenuFadeSpeed: 0.15
   _mainMenuButtonWidth: 100

@@ -21,7 +21,7 @@ public class SplashScreen : MonoBehaviour
     public AudioClip _splashScreenMusic;                    // Create slot in inspector to assign splash screen music
 
     private float _splashScreenFadeValue;                   // Defines fade value
-    private float _splashScreenFadeSpeed = 0.25f;           // Defines fade speed
+    private float _splashScreenFadeSpeed = 0.35f;           // Defines fade speed
 
     private SplashScreenController _splashScreenController; // Defines naming convention for splash screen controller
 
