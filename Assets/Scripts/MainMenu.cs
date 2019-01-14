@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
 
     [Range(0f,2f)]
     public float _mainMenuFadeValue;                                        // Defines fade Value
-    public float _mainMenuFadeSpeed = 0.15f;                                // Defines fade speed
+    public float _mainMenuFadeSpeed = 0.35f;                                // Defines fade speed
 
     public float _mainMenuButtonWidth = 100f;                               // Defines main menu button width size
     public float _mainMenuButtonHeight = 25f;                               // Defines main menu button height size
