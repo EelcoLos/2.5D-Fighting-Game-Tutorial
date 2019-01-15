@@ -9,6 +9,7 @@ using UnityEngine;
 /// 03-01-2019
 /// </summary>
 
+[RequireComponent(typeof(AudioSource))]                                     // Add audio source when attaching the script
 public class ControllerManager : MonoBehaviour
 {
     public Texture2D _controllerNotDetected;                                // Creates slot in inspector to assign controller not detected warning text
@@ -18,6 +19,9 @@ public class ControllerManager : MonoBehaviour
     public bool _controllerDetected;                                        // Creates a boolean for when a controller is connected
 
     public static bool _startupFinished;                                    // Creates a boolean for when startup is finished
+
+    private AudioSource _cmAudio;                                           // Defines naming convention for controller manager Audio Source
+    public AudioClip _controllerDetectedAudioClip;                          // Creates slot in inspector to assign controller detected Audio Clip
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -37,23 +41,56 @@ public class ControllerManager : MonoBehaviour
         DontDestroyOnLoad(this);                                            // Don't destroy this game object when loading a new scene
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if (_controllerDetected)                                            // if controller detected equals true
+            return;                                                         // then do nothing and return
+        
+        if (_startupFinished)                                               // if start up finished equals true
+            Time.timeScale = 0;                                             // then set time scale to 0
+    }
+
     // LateUpdate is called once per second
     void LateUpdate()
     {
+        if (_startupFinished)                                               // if startup finished equals true
+            _cmAudio = GetComponent<AudioSource>();                         // then get audio source component and make it equal to _cmaudio
+
         var _joyStickNames = Input.GetJoystickNames();                      // _joysticknames equals get joystick from inbuilt input
         if (_joyStickNames.Length > 0)
         {
-            _controllerDetected = true;
+            //_controllerDetected = true;                                   // was useful at first, but with video tutorial #27 this might be counterproductive
             for (int i = 0; i < _joyStickNames.Length; i++)
             {
                 if (_joyStickNames[i].Length == 19)                         // if joystick name equals code 19
                 {
                     _pS4Controller = true;                                  // set PS4 controller true
+
+                    if (_controllerDetected)                                // if controller detected equals true, which will equal false the first time
+                        return;                                             // then do nothing and return
+                    if (_startupFinished)                                   // if start up finished equals true
+                        _cmAudio.PlayOneShot(_controllerDetectedAudioClip); // then play the controller detected audio clip
+
+                    Time.timeScale = 1;                                     // then set time scale to 1 (default)
+
                     _controllerDetected = true;
                 }
                 if (_joyStickNames[i].Length == 33)                         // if joystick name equals code 33 
                 {
                     _xBOXController = true;                                 // set XBox controller true
+                    if (_controllerDetected)                                // if controller detected equals true, which will equal false the first time
+                        return;                                             // then do nothing and return
+
+                    if (_controllerDetected)                                // if controller detected equals true, which will equal false the first time
+                        return;                                             // then do nothing and return
+                    if (_startupFinished)                                   // if start up finished equals true
+                        _cmAudio.PlayOneShot(_controllerDetectedAudioClip); // then play the controller detected audio clip
+
+                    Time.timeScale = 1;                                     // then set time scale to 1 (default)
+                        
                     _controllerDetected = true;
                 }
                 if (string.IsNullOrEmpty(_joyStickNames[i]))                
@@ -68,7 +105,7 @@ public class ControllerManager : MonoBehaviour
         try
         {
             if (!_startupFinished || _controllerDetected)                       // if startup finished equals false or controller detected equals true
-            return;                                                         // then do nothing and return
+            return;                                                             // then do nothing and return
         
             if (!_controllerDetected)                                           // if controller detected equals false
             {
