@@ -15,6 +15,8 @@ public class ChooseCharacter : ChooseCharacterManager
     public float _chooseCharacterInputTimer;                        // Defines choose character input timer
     public float _chooseCharacterInputDelay = 1f;                   // Defines choose character input delay
 
+    public AudioClip _cycleCharacterButtonPress;                    // creates slot in inspector to assign audio clip when cycling through the characters
+
     private GameObject _characterDemo;                              // Defines naming convention for selected character game object
 
     public int _characterSelectState;                               // Defines naming convention for selected character state
@@ -69,6 +71,9 @@ public class ChooseCharacter : ChooseCharacterManager
                 _characterSelectState++;
             }
 
+            GetComponent<AudioSource>()                              // Get component
+                .PlayOneShot(_cycleCharacterButtonPress);            // and play cycle button press audio clip
+                
             CharacterSelectManager();                                // and call CharacterSelectManager function
             _chooseCharacterInputTimer = _chooseCharacterInputDelay; // make choose character input timer equal to input delay
         }
