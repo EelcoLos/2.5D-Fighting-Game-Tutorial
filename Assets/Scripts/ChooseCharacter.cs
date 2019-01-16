@@ -169,6 +169,29 @@ public class ChooseCharacter : ChooseCharacterManager
     /// </summary>
     void OnGUI()
     {
+        var bgrndpos = new Rect(0, 0,                               // Draw GUI Texture at this position
+            Screen.width, Screen.height / 10);                      // by these dimensions
+        var fgrndpos = new Rect(Screen.width /2 -                   // Draw GUI Texture at this position Z
+        (_foregroundTextWidth / 2), 0,                              // at this position Y
+            _foregroundTextWidth, _foregroundTextHeight);           // by these dimensions
+
+        var arleft = new Rect(Screen.width /2 -                     // Draw GUI Texture at this position 
+        (_foregroundTextWidth / 2) - _arrowSize                     // + this size on the Z
+        , 0,                                                        // at this position Y
+            _arrowSize, _arrowSize);                                // by these dimensions
+
+        var arright = new Rect(Screen.width /2 +                    // Draw GUI Texture at this position Z
+        (_foregroundTextWidth / 2), 0,                              // at this position Y
+            _arrowSize, _arrowSize);                                // by these dimensions
+
         
+
+        GUI.DrawTexture(bgrndpos, _selectCharacterTextBackground);  // and then draw this texture
+        GUI.DrawTexture(fgrndpos, _selectCharacterTextForeground);  // and then draw this texture
+        GUI.DrawTexture(fgrndpos, _selectCharacterText);            // and then draw this texture
+        GUI.DrawTexture(arleft, _selectCharacterArrowLeft);         // and then draw this texture
+        GUI.DrawTexture(arright, _selectCharacterArrowRight);       // and then draw this texture
+
+
     }
 }

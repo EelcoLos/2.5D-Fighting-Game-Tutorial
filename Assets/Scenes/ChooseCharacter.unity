@@ -373,3 +373,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a47141469bcf341b2776ebdad2d178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectCharacterTextBackground: {fileID: 2800000, guid: df1b0c6d610879a49bcc2fdeb486ac0f,
+    type: 3}
+  _selectCharacterTextForeground: {fileID: 2800000, guid: c90e8564c0d92fa42a326a74b2bd0979,
+    type: 3}
+  _selectCharacterText: {fileID: 2800000, guid: 4c46768f9837d094b875086caaeaabc9,
+    type: 3}
+  _selectCharacterArrowLeft: {fileID: 2800000, guid: 05af036834468d04cbf611d8893c9ef3,
+    type: 3}
+  _selectCharacterArrowRight: {fileID: 2800000, guid: a2d1c96be0c35a047a5cef7068bd5ff8,
+    type: 3}
+  _chooseCharacterInputTimer: 0
+  _chooseCharacterInputDelay: 1
+  _cycleCharacterButtonPress: {fileID: 8300000, guid: 41d84b417461c2b48b16da1932836f8a,
+    type: 3}
+  _characterSelectState: 0
