@@ -12,6 +12,18 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]                             // Add audio source when attaching the script
 public class ChooseCharacter : ChooseCharacterManager
 {
+
+    public Texture2D _selectCharacterTextBackground;                // Creates slot in inspector to assign select character text background
+    public Texture2D _selectCharacterTextForeground;                // Creates slot in inspector to assign select character text foreground
+    public Texture2D _selectCharacterText;                          // Creates slot in inspector to assign select character text
+    
+    public Texture2D _selectCharacterArrowLeft;                     // Creates slot in inspector to assign select character arrow left
+    public Texture2D _selectCharacterArrowRight;                    // Creates slot in inspector to assign select character arrow right
+
+    private float _foregroundTextWidth;                             // Creates naming convention for foreground text width
+    private float _foregroundTextHeight;                            // Creates naming convention for foreground text height
+    private float _arrowSize;                                       // Creates naming convention for arrow size
+
     public float _chooseCharacterInputTimer;                        // Defines choose character input timer
     public float _chooseCharacterInputDelay = 1f;                   // Defines choose character input delay
 
@@ -36,6 +48,10 @@ public class ChooseCharacter : ChooseCharacterManager
     void Start()
     {
         CharacterSelectManager();                                   // Call CharacterSelectManager on start up
+
+        _foregroundTextWidth = Screen.width / 1.5f;                 // Foreground text width equals 1.5f of the screen width on start up
+        _foregroundTextHeight = Screen.height / 10f;                // Foreground text height equals 10f of the screen height on start up
+        _arrowSize = Screen.height / 10f;                           // Arrow size equals height divided by 10 on start up
     }
 
     // Update is called once per frame
