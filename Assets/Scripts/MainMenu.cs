@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
     public float _mainMenuVerticalInputDelay = 1f;                          // Defines vertical input delay
 
     public Texture2D _mainMenuBackground;                                   // Creates slot in inspector to assign main menu background
+    public Texture2D _mainMenuTitle;                                        // Creates slot in inspector to assign main menu title
 
     private AudioSource _mainMenuAudio;                                     // Defines naming convention for the main menu audio Component
     public AudioClip _mainMenuMusic;                                        // Creates slot in inspector to assign main menu music
@@ -30,7 +31,7 @@ public class MainMenu : MonoBehaviour
 
     [Range(0f,2f)]
     public float _mainMenuFadeValue;                                        // Defines fade Value
-    public float _mainMenuFadeSpeed = 0.15f;                                // Defines fade speed
+    public float _mainMenuFadeSpeed = 0.35f;                                // Defines fade speed
 
     public float _mainMenuButtonWidth = 100f;                               // Defines main menu button width size
     public float _mainMenuButtonHeight = 25f;                               // Defines main menu button height size
@@ -274,6 +275,8 @@ public class MainMenu : MonoBehaviour
             Rect rect = new Rect(0, 0, Screen.width, Screen.height);            // Draw texture at position by these dimenions
             GUI.DrawTexture(rect, _mainMenuBackground);                         // and draw this texture
 
+            GUI.DrawTexture(rect, _mainMenuTitle);
+
             GUI.color = new Color(1,1,1, _mainMenuFadeValue);                   // GUI color is equal to (1 1 1 rgb) plus the fade value (alpha)
 
             GUI.BeginGroup(new Rect(                                            // Begin GUI Group
@@ -282,35 +285,35 @@ public class MainMenu : MonoBehaviour
                 _mainMenuButtonWidth,                                           // by this dimension X
                 _mainMenuButtonHeight*3 + _mainMenuGUIOffset * 2));             // by this dimension Y
 
-            GUI.SetNextControlName("_onePlayer");                               // Set name to one player
-            if (GUI.Button(new Rect(                                            // Create button
-                0,0,                                                            // at this position within the gui group
-                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
-                "One Player"))
-                {
-                    _selectedButton = 0;                                        // set selected button to 0
-                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
-                }
+                GUI.SetNextControlName("_onePlayer");                           // Set name to one player
+                if (GUI.Button(new Rect(                                        // Create button
+                    0,0,                                                        // at this position within the gui group
+                    _mainMenuButtonWidth, _mainMenuButtonHeight),               // at these dimension
+                    "One Player"))
+                    {
+                        _selectedButton = 0;                                    // set selected button to 0
+                        MainMenuButtonPress();                                  // Call MainMenuButtonPress function
+                    }
 
-            GUI.SetNextControlName("_twoPlayer");                               // Set name to two player
-            if (GUI.Button(new Rect(                                            // Create button
-                0,_mainMenuButtonHeight + _mainMenuGUIOffset,                   // at this position within the gui group
-                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
-                "Two Player"))
-                {
-                    _selectedButton = 1;                                        // set selected button to 1
-                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
-                }
+                GUI.SetNextControlName("_twoPlayer");                           // Set name to two player
+                if (GUI.Button(new Rect(                                        // Create button
+                    0,_mainMenuButtonHeight + _mainMenuGUIOffset,               // at this position within the gui group
+                    _mainMenuButtonWidth, _mainMenuButtonHeight),               // at these dimension
+                    "Two Player"))
+                    {
+                        _selectedButton = 1;                                    // set selected button to 1
+                        MainMenuButtonPress();                                  // Call MainMenuButtonPress function
+                    }
 
-            GUI.SetNextControlName("_quit");                                    // Set name to quit
-            if (GUI.Button(new Rect(                                            // Create button
-                0,_mainMenuButtonHeight* 2 + _mainMenuGUIOffset * 2,            // at this position within the gui group
-                _mainMenuButtonWidth, _mainMenuButtonHeight),                   // at these dimension
-                "Quit"))
-                {
-                    _selectedButton = 2;                                        // set selected button to 2
-                    MainMenuButtonPress();                                      // Call MainMenuButtonPress function
-                }                                                   
+                GUI.SetNextControlName("_quit");                                // Set name to quit
+                if (GUI.Button(new Rect(                                        // Create button
+                    0,_mainMenuButtonHeight* 2 + _mainMenuGUIOffset * 2,        // at this position within the gui group
+                    _mainMenuButtonWidth, _mainMenuButtonHeight),               // at these dimension
+                    "Quit"))
+                    {
+                        _selectedButton = 2;                                    // set selected button to 2
+                        MainMenuButtonPress();                                  // Call MainMenuButtonPress function
+                    }                                                   
 
             GUI.EndGroup();                                                     // End GUI Group
 
@@ -322,7 +325,7 @@ public class MainMenu : MonoBehaviour
                 }
                 catch (System.IndexOutOfRangeException iex)
                 {
-                    Debug.LogErrorFormat("Index OOB: selectedbutton: {0}", _selectedButton);
+                    Debug.LogErrorFormat("Index OOB: selectedbutton: {0}, error: {1}", _selectedButton, iex);
                 }
                 
             }
