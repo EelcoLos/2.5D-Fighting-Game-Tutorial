@@ -38,13 +38,12 @@ test-playmode:
   <<: *unity_before_script
   script:
   - chmod +x ./ci/build.sh && ./ci/build.sh
-
+  only:
+     - master
   artifacts:
     paths:
     - ./Builds/
-#tip: uncomment following lines if you'd like to build only on master branch
-#   only:
-#     - master
+    
 
 # build-StandaloneLinux64:
 #   <<: *build
@@ -82,4 +81,3 @@ build-StandaloneWindows64:
 #     - public
 #   only:
 #   - master
-
