@@ -18,7 +18,18 @@ public class ChooseCharacterManager : MonoBehaviour
     public static bool _robotBrown;                                                 // Defines if robot brown is selected   
     public static bool _robotGreen;                                                 // Defines if robot green is selected   
     public static bool _robotPink;                                                  // Defines if robot pink is selected   
-    public static bool _robotGold;                                                  // Defines if robot gold is selected   
+    public static bool _robotGold;                                                  // Defines if robot gold is selected
+    public static string[] _selectedCharacterResourceNames;                          // Defines the selected character resource   
+
+    protected void setCharacterResourceResourceName(string name, int location = 0)
+    {
+        _selectedCharacterResourceNames[location] = name;
+    }
+
+    public static string getSelectedCharacterResourceName(int location = 0)
+    {
+        return _selectedCharacterResourceNames[location];
+    }
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.

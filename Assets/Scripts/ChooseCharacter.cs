@@ -100,35 +100,51 @@ public class ChooseCharacter : ChooseCharacterManager
         switch (_characterSelectState)
         {
             case 0:
-                templateRobot("BlackRobot", new Vector3(-0.5f, 0 - 7));
+                var CharNameBlack = "BlackRobot";
+                templateRobot(CharNameBlack, new Vector3(-0.5f, 0 - 7));
                 _robotBlack = true;
+                setCharacterResourceResourceName(CharNameBlack);
                 break;
             case 1:
-                templateRobot("WhiteRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameWhite = "WhiteRobot";
+                templateRobot(CharNameWhite, new Vector3(-0.5f, 0 - 7));
                 _robotWhite = true;
+                setCharacterResourceResourceName(CharNameWhite);
                 break;
             case 2:
-                templateRobot("RedRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameRed = "RedRobot";
+                templateRobot(CharNameRed, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNameRed);
                 _robotRed = true;
                 break;
             case 3:
-                templateRobot("BlueRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameBlue = "BlueRobot";
+                templateRobot(CharNameBlue, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNameBlue);
                 _robotBlue = true;
                 break;
             case 4:
-                templateRobot("BrownRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameBrown = "BrownRobot";
+                templateRobot(CharNameBrown, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNameBrown);
                 _robotBrown = true;
                 break;
             case 5:
-                templateRobot("GreenRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameGreen = "GreenRobot";
+                templateRobot(CharNameGreen, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNameGreen);
                  _robotGreen = true;
                 break;
             case 6:
-                templateRobot("PinkRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNamePink = "PinkRobot";
+                templateRobot(CharNamePink, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNamePink);
                 _robotPink = true;
                 break;
             case 7:
-                templateRobot("GoldRobot", new Vector3(-0.5f, 0 - 7));
+                const string CharNameGold = "GoldRobot";
+                templateRobot(CharNameGold, new Vector3(-0.5f, 0 - 7));
+                setCharacterResourceResourceName(CharNameGold);
                 _robotGold = true;
                 break;
             //default:
